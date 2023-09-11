@@ -44,7 +44,7 @@ class Tela2 : AppCompatActivity() {
 
             finish()
         } else {
-            setarMensagemValidacao("Existem campos em braco ou vazio")
+            setarMensagemValidacao("Existem campos em branco ou vazio")
             intent.apply {
                 putExtra("valido", false)
             }

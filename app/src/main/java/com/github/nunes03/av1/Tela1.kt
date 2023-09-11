@@ -36,6 +36,7 @@ class Tela1 : AppCompatActivity() {
         tela02.apply {
             putExtra("retornarObjeto", false)
         }
+
         acaoAposRetorno.launch(tela02)
     }
 
@@ -44,6 +45,7 @@ class Tela1 : AppCompatActivity() {
         tela02.apply {
             putExtra("retornarObjeto", true)
         }
+
         acaoAposRetorno.launch(tela02)
     }
 
@@ -72,7 +74,7 @@ class Tela1 : AppCompatActivity() {
         cliente.nome = retorno?.getStringExtra("nomeCliente")
         cliente.email = retorno?.getStringExtra("emailCliente")
 
-        return cliente;
+        return cliente
     }
 
     private fun mostrarDados(cliente: Cliente?) {
