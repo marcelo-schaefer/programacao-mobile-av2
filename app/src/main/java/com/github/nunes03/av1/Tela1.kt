@@ -2,6 +2,7 @@ package com.github.nunes03.av1
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,9 +11,14 @@ import com.github.nunes03.av1.entities.Cliente
 
 class Tela1 : AppCompatActivity() {
 
-    val acaoAposRetorno =
+    private val acaoAposRetornoObjeto =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            tratarRetorno(result.resultCode, result.data)
+            tratarRetornoObjeto(result.data)
+        }
+
+    private val acaoAposRetornoParametro =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            tratarRetornoParametro(result.data)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +43,7 @@ class Tela1 : AppCompatActivity() {
             putExtra("retornarObjeto", false)
         }
 
-        acaoAposRetorno.launch(tela02)
+        acaoAposRetornoParametro.launch(tela02)
     }
 
     private fun objeto() {
@@ -46,7 +52,7 @@ class Tela1 : AppCompatActivity() {
             putExtra("retornarObjeto", true)
         }
 
-        acaoAposRetorno.launch(tela02)
+        acaoAposRetornoObjeto.launch(tela02)
     }
 
     private fun limpar() {
@@ -54,19 +60,27 @@ class Tela1 : AppCompatActivity() {
         textCliente.text = ""
     }
 
-    private fun tratarRetorno(code: Int, retorno: Intent?) {
-        val valido = retorno?.getBooleanExtra("valido", false)
+    private fun tratarRetornoObjeto(tela2: Intent?) {
+        Log.d("tela1", "Retorno como objeto")
 
-        if (valido == true) {
-            val cliente: Cliente? = if (code == 0) {
-                retorno?.getParcelableExtra("cliente");
-            } else {
-                montarCliente(retorno)
-            }
+        if (tela2Valida(tela2) == true) {
+            val cliente: Cliente? = tela2?.getParcelableExtra("cliente")
 
             mostrarDados(cliente)
         }
     }
+
+    private fun tratarRetornoParametro(tela2: Intent?) {
+        Log.d("tela1", "Retorno como parâmetro")
+
+        if (tela2Valida(tela2) == true) {
+            val cliente = montarCliente(tela2);
+
+            mostrarDados(cliente)
+        }
+    }
+
+    private fun tela2Valida(retorno: Intent?): Boolean? = retorno?.getBooleanExtra("valido", false)
 
     private fun montarCliente(retorno: Intent?): Cliente {
         val cliente = Cliente()
