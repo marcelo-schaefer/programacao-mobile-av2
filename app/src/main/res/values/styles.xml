@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BotaoPadrao" parent="TextAppearance.AppCompat">
+        <item name="android:backgroundTint">#00C89B</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:left">4dp</item>
+        <item name="android:top">4dp</item>
+        <item name="android:right">4dp</item>
+        <item name="android:bottom">4dp</item>
+        <item name="android:radius">4dp</item>
+
+    </style>
+
+    <style name="TextoNegrito" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

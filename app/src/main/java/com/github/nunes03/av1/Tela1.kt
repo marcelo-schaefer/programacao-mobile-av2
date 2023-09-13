@@ -71,7 +71,7 @@ class Tela1 : AppCompatActivity() {
     }
 
     private fun tratarRetornoParametro(tela2: Intent?) {
-        Log.d("tela1", "Retorno como parâmetro")
+        Log.d("tela1", "Retorno como parâmetro");
 
         if (tela2Valida(tela2) == true) {
             val cliente = montarCliente(tela2);

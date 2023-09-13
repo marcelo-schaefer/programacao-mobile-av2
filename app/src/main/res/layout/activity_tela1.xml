@@ -19,26 +19,25 @@
 
         <Button
             android:id="@+id/botaoParametroTela1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/BotaoPadrao"
             android:text="Parâmetro" />
 
         <Button
             android:id="@+id/botaoObjetoTela1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/BotaoPadrao"
             android:text="Objeto" />
 
         <Button
             android:id="@+id/botaoLimparTela1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/BotaoPadrao"
             android:text="Limpar" />
 
         <TextView
             android:id="@+id/textClienteTela1"
             android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            android:layout_height="400dp"
+            style="@style/TextoNegrito"
+             />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

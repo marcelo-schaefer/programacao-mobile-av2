@@ -49,18 +49,17 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textAlignment="center"
-            android:textColor="#FF0000" />
+            android:textColor="#FF0000"
+            style="@style/TextoNegrito"/>
 
         <Button
             android:id="@+id/botaoSalvarTela2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/BotaoPadrao"
             android:text="Salvar" />
 
         <Button
             android:id="@+id/botaoCancelarTela2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/BotaoPadrao"
             android:text="Cancelar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
