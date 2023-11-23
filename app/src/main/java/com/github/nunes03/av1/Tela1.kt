@@ -56,6 +56,8 @@ class Tela1 : AppCompatActivity() {
     }
 
     private fun limpar() {
+        Log.d("tela1", "Limpando registros");
+
         val textCliente = getTextClienteTela1()
         textCliente.text = ""
     }
