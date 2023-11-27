@@ -1,13 +1,13 @@
-package com.github.nunes03.av1
+package com.github.nunes03.av1.activities
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.github.nunes03.av1.entities.Cliente
+import com.github.nunes03.av1.R
 
-class Tela2 : AppCompatActivity() {
+class CreateAnimalActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +29,8 @@ class Tela2 : AppCompatActivity() {
 
     private fun salvar() {
         if (valido()) {
-            val retornarObjeto = intent.getBooleanExtra("retornarObjeto", true);
-
-            if (retornarObjeto) {
                 aplicarObjeto()
-            } else {
-                aplicarParametro()
-            }
+
 
             setarMensagemValidacao("")
             intent.apply {
@@ -52,13 +47,7 @@ class Tela2 : AppCompatActivity() {
     }
 
     private fun valido(): Boolean {
-        return validarId() && validarNome() && validarEmail()
-    }
-
-    private fun validarId(): Boolean {
-        val id = textId().text.toString()
-
-        return id.trim().isNotEmpty()
+        return validarNome() && validarEmail()
     }
 
     private fun validarNome(): Boolean {
@@ -84,9 +73,8 @@ class Tela2 : AppCompatActivity() {
         finish()
     }
 
-    private fun montarCliente(): Cliente {
-        val cliente = Cliente()
-        cliente.id = Integer.parseInt(textId().text.toString())
+    private fun montarCliente(): Client {
+        val cliente = Client()
         cliente.nome = textNome().text.toString()
         cliente.email = textEmail().text.toString()
 
@@ -101,25 +89,9 @@ class Tela2 : AppCompatActivity() {
         setResult(0, intent)
     }
 
-    private fun aplicarParametro() {
-        val id = Integer.parseInt(textId().text.toString())
-        val nome = textNome().text.toString()
-        val email = textEmail().text.toString()
+    private fun textNome(): EditText = findViewById(R.id.textNomeCdastrarAnimal)
 
-        intent.apply {
-            putExtra("idCliente", id)
-            putExtra("nomeCliente", nome)
-            putExtra("emailCliente", email)
-        }
-
-        setResult(1, intent)
-    }
-
-    private fun textId(): EditText = findViewById(R.id.textIdTela2)
-
-    private fun textNome(): EditText = findViewById(R.id.textNomeTela2)
-
-    private fun textEmail(): EditText = findViewById(R.id.textEmailTela2)
+    private fun textEmail(): EditText = findViewById(R.id.textEspecieCdastrarAnimal)
 
     private fun textValidarTela2(): TextView = findViewById(R.id.textValidarTela02)
 }

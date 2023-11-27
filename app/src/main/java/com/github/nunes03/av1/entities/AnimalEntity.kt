@@ -1,8 +1,8 @@
 package com.github.nunes03.av1.entities
 
-class UserEntity(
+class AnimalEntity(
     var id: Int,
     var name: String,
-    var email: String,
-    var password: String
+    var kind: KindEntity,
+    var user: UserEntity
 )

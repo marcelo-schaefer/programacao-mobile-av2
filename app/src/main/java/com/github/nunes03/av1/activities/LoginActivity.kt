@@ -1,10 +1,11 @@
-package com.github.nunes03.av1
+package com.github.nunes03.av1.activities
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import com.github.nunes03.av1.R
 import io.github.nunes03.pet_shop.database.UserRepository
 
 class LoginActivity : AppCompatActivity() {
@@ -27,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         if (UserRepository.existByEmailAndPassword(email, password)) {
             getTextValidate().text = ""
 
-            val homeActivity = Intent(this, Tela1::class.java);
+            val homeActivity = Intent(this, Tela1Activity::class.java);
             startActivity(homeActivity);
 
         } else {

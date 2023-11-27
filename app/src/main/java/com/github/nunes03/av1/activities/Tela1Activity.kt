@@ -1,4 +1,4 @@
-package com.github.nunes03.av1
+package com.github.nunes03.av1.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.github.nunes03.av1.entities.Cliente
+import com.github.nunes03.av1.R
 
-class Tela1 : AppCompatActivity() {
+class Tela1Activity : AppCompatActivity() {
 
     private val acaoAposRetornoObjeto =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -38,7 +38,7 @@ class Tela1 : AppCompatActivity() {
     }
 
     private fun parametro() {
-        val tela02 = Intent(this, Tela2::class.java)
+        val tela02 = Intent(this, Tela2Activity::class.java)
         tela02.apply {
             putExtra("retornarObjeto", false)
         }
@@ -47,7 +47,7 @@ class Tela1 : AppCompatActivity() {
     }
 
     private fun objeto() {
-        val tela02 = Intent(this, Tela2::class.java)
+        val tela02 = Intent(this, Tela2Activity::class.java)
         tela02.apply {
             putExtra("retornarObjeto", true)
         }
@@ -66,7 +66,7 @@ class Tela1 : AppCompatActivity() {
         Log.d("tela1", "Retorno como objeto")
 
         if (tela2Valida(tela2) == true) {
-            val cliente: Cliente? = tela2?.getParcelableExtra("cliente")
+            val cliente: Client? = tela2?.getParcelableExtra("cliente")
 
             mostrarDados(cliente)
         }
@@ -84,8 +84,8 @@ class Tela1 : AppCompatActivity() {
 
     private fun tela2Valida(retorno: Intent?): Boolean? = retorno?.getBooleanExtra("valido", false)
 
-    private fun montarCliente(retorno: Intent?): Cliente {
-        val cliente = Cliente()
+    private fun montarCliente(retorno: Intent?): Client {
+        val cliente = Client()
         cliente.id = retorno?.getIntExtra("idCliente", 0)
         cliente.nome = retorno?.getStringExtra("nomeCliente")
         cliente.email = retorno?.getStringExtra("emailCliente")
@@ -93,7 +93,7 @@ class Tela1 : AppCompatActivity() {
         return cliente
     }
 
-    private fun mostrarDados(cliente: Cliente?) {
+    private fun mostrarDados(cliente: Client?) {
         val textCliente = getTextClienteTela1()
 
         if (textCliente.text.isEmpty()) {
@@ -106,7 +106,7 @@ class Tela1 : AppCompatActivity() {
         }
     }
 
-    private fun montarDado(cliente: Cliente?): String {
+    private fun montarDado(cliente: Client?): String {
         return "Id: ${cliente?.id}" +
                 "\nNome: ${cliente?.nome}" +
                 "\nE-mail: ${cliente?.email}"

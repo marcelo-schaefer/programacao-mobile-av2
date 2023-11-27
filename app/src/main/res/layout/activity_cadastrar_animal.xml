@@ -5,7 +5,7 @@
     android:id="@+id/layoutMainCreateAccount"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastrarAnimal">
+    tools:context=".activities.CreateAnimalActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout4"

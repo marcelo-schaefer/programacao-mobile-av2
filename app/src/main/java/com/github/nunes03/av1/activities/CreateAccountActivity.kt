@@ -1,11 +1,12 @@
-package com.github.nunes03.av1
+package com.github.nunes03.av1.activities
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import io.github.nunes03.pet_shop.database.UserRepository
+import com.github.nunes03.av1.R
 import com.github.nunes03.av1.entities.UserEntity
+import io.github.nunes03.pet_shop.database.UserRepository
 
 class CreateAccountActivity : AppCompatActivity() {
 
@@ -75,7 +76,8 @@ class CreateAccountActivity : AppCompatActivity() {
 
     private fun getTextPassword(): TextView = findViewById(R.id.textPasswordCreateAccount)
 
-    private fun getTextConfirmPassword(): TextView = findViewById(R.id.textConfirmPasswordCreateAccount)
+    private fun getTextConfirmPassword(): TextView =
+        findViewById(R.id.textConfirmPasswordCreateAccount)
 
     private fun getTextValidate(): TextView = findViewById(R.id.textValidateCreateAccount)
 }
