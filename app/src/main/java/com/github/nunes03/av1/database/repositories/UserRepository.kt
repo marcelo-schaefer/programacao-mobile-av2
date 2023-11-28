@@ -1,4 +1,4 @@
-package io.github.nunes03.pet_shop.database
+package com.github.nunes03.av1.database.repositories
 
 import android.util.Log
 import com.github.nunes03.av1.entities.UserEntity

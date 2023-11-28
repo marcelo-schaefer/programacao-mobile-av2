@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import com.github.nunes03.av1.R
-import io.github.nunes03.pet_shop.database.UserRepository
+import com.github.nunes03.av1.database.repositories.UserRepository
 
 class LoginActivity : AppCompatActivity() {
 

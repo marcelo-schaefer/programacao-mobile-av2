@@ -8,8 +8,6 @@ import android.util.Log
 
 class DatabaseConnection(context: Context?) : SQLiteOpenHelper(context, "pet_shop", null, 2) {
 
-    private val className: String? = DatabaseConnection::class.simpleName
-
     private val createTableUser: String = "create table user (" +
             "id integer primary key autoincrement," +
             "name text not null," +
@@ -36,6 +34,15 @@ class DatabaseConnection(context: Context?) : SQLiteOpenHelper(context, "pet_sho
             "    references user (id) " +
             ");"
 
+    private val createTableConsultation: String = "create table consultation (" +
+            "id integer primary key autoincrement," +
+            "time timestamp not null," +
+            "animal_id integer not null," +
+            "constraint fk_consultation_animal" +
+            "    foreign key (animal_id)" +
+            "    references animal (id) " +
+            ");"
+
     init {
         log("Iniciando banco de dados")
     }
@@ -45,26 +52,18 @@ class DatabaseConnection(context: Context?) : SQLiteOpenHelper(context, "pet_sho
         db.execSQL(createTableUser)
         db.execSQL(createTableKind)
         db.execSQL(createTableAnimal)
+        db.execSQL(createTableConsultation)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        Log.d(
-            "Fey",
-            "DB->onUpgrade() oldVersion:" + oldVersion.toString() + " newVersion:" + newVersion.toString()
-        )
         //db.execSQL("DROP TABLE tb_usuario ") //
 
-        try {
-            val content = ContentValues()
-            content.put("us_nomusu", "Usuário v:" + newVersion.toString())
-            var qtd = db.update("tb_usmuario", content, null, null)
-            Log.d("Fey", "DB->onUpgrade() alterados = $qtd")
-        } catch (e: RuntimeException) {
-            Log.d("Fey", "DB->onUpgrade() erro = " + e.message)
-        }
+        val content = ContentValues()
+        content.put("us_nomusu", "Usuário v:" + newVersion.toString())
+        var qtd = db.update("tb_usmuario", content, null, null)
     }
 
     private fun log(message: String) {
-        Log.d(className, message)
+        Log.d(DatabaseConnection::class.simpleName, message)
     }
 }
