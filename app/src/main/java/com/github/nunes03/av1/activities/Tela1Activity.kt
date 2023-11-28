@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.github.nunes03.av1.R
+import com.github.nunes03.av1.entities.UserEntity
 
 class Tela1Activity : AppCompatActivity() {
 
@@ -66,7 +67,7 @@ class Tela1Activity : AppCompatActivity() {
         Log.d("tela1", "Retorno como objeto")
 
         if (tela2Valida(tela2) == true) {
-            val cliente: Client? = tela2?.getParcelableExtra("cliente")
+            val cliente: UserEntity? = tela2?.getParcelableExtra("cliente")
 
             mostrarDados(cliente)
         }
@@ -84,16 +85,16 @@ class Tela1Activity : AppCompatActivity() {
 
     private fun tela2Valida(retorno: Intent?): Boolean? = retorno?.getBooleanExtra("valido", false)
 
-    private fun montarCliente(retorno: Intent?): Client {
-        val cliente = Client()
+    private fun montarCliente(retorno: Intent?): UserEntity {
+        val cliente = UserEntity()
         cliente.id = retorno?.getIntExtra("idCliente", 0)
-        cliente.nome = retorno?.getStringExtra("nomeCliente")
+        cliente.name = retorno?.getStringExtra("nomeCliente")
         cliente.email = retorno?.getStringExtra("emailCliente")
 
         return cliente
     }
 
-    private fun mostrarDados(cliente: Client?) {
+    private fun mostrarDados(cliente: UserEntity?) {
         val textCliente = getTextClienteTela1()
 
         if (textCliente.text.isEmpty()) {
@@ -106,9 +107,9 @@ class Tela1Activity : AppCompatActivity() {
         }
     }
 
-    private fun montarDado(cliente: Client?): String {
+    private fun montarDado(cliente: UserEntity?): String {
         return "Id: ${cliente?.id}" +
-                "\nNome: ${cliente?.nome}" +
+                "\nNome: ${cliente?.name}" +
                 "\nE-mail: ${cliente?.email}"
     }
 

@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.nunes03.av1.R
+import com.github.nunes03.av1.entities.UserEntity
 
 class CreateAnimalActivity : AppCompatActivity() {
 
@@ -73,9 +74,9 @@ class CreateAnimalActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun montarCliente(): Client {
-        val cliente = Client()
-        cliente.nome = textNome().text.toString()
+    private fun montarCliente(): UserEntity {
+        val cliente = UserEntity()
+        cliente.name = textNome().text.toString()
         cliente.email = textEmail().text.toString()
 
         return cliente

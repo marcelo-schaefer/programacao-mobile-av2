@@ -69,7 +69,7 @@ class CreateAccountActivity : AppCompatActivity() {
         val email = getTextEmail().text.toString();
         val password = getTextConfirmPassword().text.toString();
 
-        return UserEntity(email, password);
+        return UserEntity();
     }
 
     private fun getTextEmail(): TextView = findViewById(R.id.textEmailCreateAccount)
