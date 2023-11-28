@@ -1,14 +1,15 @@
 package com.github.nunes03.av1.database
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.github.nunes03.av1.entities.AbstractEntity
+import com.github.nunes03.av1.mappers.interfaces.MapperInterface
 
-class DatabaseConnection(context: Context) :
+class DatabaseConnection(private val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-
-    private val context: Context = context
 
     companion object {
         const val DATABASE_NAME: String = "pet_shop";
@@ -70,7 +71,128 @@ class DatabaseConnection(context: Context) :
         Log.d(DatabaseConnection::class.simpleName, message)
     }
 
-    fun getPathDatabase(): String {
-        return context.getDatabasePath(DATABASE_NAME).absolutePath
+    fun insert(entity: AbstractEntity, contentValues: ContentValues): Long {
+        val databaseConnection = DatabaseConnection(context)
+        val sqLiteDatabase = databaseConnection.writableDatabase
+
+        try {
+            return sqLiteDatabase.insert(
+                entity.getTableName(),
+                null,
+                contentValues
+            )
+        } catch (exception: Exception) {
+            throw RuntimeException("Error when executing insert in the base:", exception)
+        } finally {
+            databaseConnection.close()
+            sqLiteDatabase.close()
+        }
+    }
+
+    fun update(entity: AbstractEntity, contentValues: ContentValues, whereCondition: String) {
+        val databaseConnection = DatabaseConnection(context)
+        val sqLiteDatabase = databaseConnection.writableDatabase
+
+        try {
+            sqLiteDatabase.update(
+                entity.getTableName(),
+                contentValues,
+                whereCondition,
+                null
+            )
+        } catch (exception: Exception) {
+            throw RuntimeException("Error when executing update on the base:", exception)
+        } finally {
+            databaseConnection.close()
+            sqLiteDatabase.close()
+        }
+    }
+
+    fun delete(entity: AbstractEntity, whereCondition: String) {
+        val databaseConnection = DatabaseConnection(context)
+        val sqLiteDatabase = databaseConnection.writableDatabase
+
+        try {
+            sqLiteDatabase.delete(
+                entity.getTableName(),
+                whereCondition,
+                null
+            )
+        } catch (exception: Exception) {
+            throw RuntimeException("Error when executing delete on the base:", exception)
+        } finally {
+            databaseConnection.close()
+            sqLiteDatabase.close()
+        }
+    }
+
+    fun <T> queryOne(
+        entity: AbstractEntity,
+        mapperInterface: MapperInterface<T>,
+        selectColumns: List<String>,
+        whereConditions: List<String>,
+        groupBy: String,
+        orderBy: String
+    ): T {
+        val databaseConnection = DatabaseConnection(context)
+        val sqLiteDatabase = databaseConnection.readableDatabase
+
+        try {
+            val cursor = sqLiteDatabase.query(
+                entity.getTableName(),
+                selectColumns.toTypedArray(),
+                null,
+                whereConditions.toTypedArray(),
+                groupBy,
+                null,
+                orderBy,
+            )
+
+            cursor.moveToNext()
+            return mapperInterface.convert(cursor)
+        } catch (exception: Exception) {
+            throw RuntimeException("Error when executing database query:", exception);
+        } finally {
+            databaseConnection.close()
+            sqLiteDatabase.close()
+        }
+    }
+
+    fun <T> query(
+        entity: AbstractEntity,
+        mapperInterface: MapperInterface<T>,
+        selectColumns: List<String>,
+        whereConditions: List<String>,
+        groupBy: String,
+        orderBy: String
+    ): List<T> {
+        val databaseConnection = DatabaseConnection(context)
+        val sqLiteDatabase = databaseConnection.readableDatabase
+
+        try {
+            val cursor = sqLiteDatabase.query(
+                entity.getTableName(),
+                selectColumns.toTypedArray(),
+                null,
+                whereConditions.toTypedArray(),
+                groupBy,
+                null,
+                orderBy,
+            )
+
+            val response: List<T> = ArrayList()
+
+            while (cursor.moveToNext()) {
+                response.plus(mapperInterface.convert(cursor))
+            }
+
+            cursor.close()
+            return response;
+        } catch (exception: Exception) {
+            throw RuntimeException("Error when executing database query:", exception);
+        } finally {
+            databaseConnection.close()
+            sqLiteDatabase.close()
+        }
     }
 }
