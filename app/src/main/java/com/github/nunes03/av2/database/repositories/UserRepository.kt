@@ -9,7 +9,7 @@ class UserRepository : UserRepositoryInterface {
         TODO("Not yet implemented")
     }
 
-    override fun update(entity: UserEntity) {
+    override fun updateById(entity: UserEntity) {
         TODO("Not yet implemented")
     }
 

@@ -4,7 +4,7 @@ interface RepositoryInterface<E> {
 
     fun create(entity: E): Long
 
-    fun update(entity: E)
+    fun updateById(entity: E)
 
     fun findById(id: Int): E?
 

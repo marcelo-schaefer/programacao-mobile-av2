@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import com.github.nunes03.av2.database.DatabaseConnection
 import com.github.nunes03.av2.database.repositories.interfaces.KindRepositoryInterface
+import com.github.nunes03.av2.entities.AbstractEntity
 import com.github.nunes03.av2.entities.KindEntity
 import com.github.nunes03.av2.mappers.KindMapper
 
@@ -12,6 +13,8 @@ class KindRepository(context: Context) : KindRepositoryInterface {
     private val databaseConnection: DatabaseConnection
 
     private val kindMapper: KindMapper = KindMapper()
+
+    private val abstractEntity: AbstractEntity = KindEntity()
 
     init {
         this.databaseConnection = DatabaseConnection(context)
@@ -22,18 +25,25 @@ class KindRepository(context: Context) : KindRepositoryInterface {
         contentValues.put("name", entity.name)
 
         return databaseConnection.insert(
-            KindEntity(),
+            abstractEntity,
             contentValues
         )
     }
 
-    override fun update(entity: KindEntity) {
-        TODO("Not yet implemented")
+    override fun updateById(entity: KindEntity) {
+        val contentValues = ContentValues()
+        contentValues.put("name", entity.name)
+
+        databaseConnection.update(
+            abstractEntity,
+            contentValues,
+            "id = ${entity.id}"
+        )
     }
 
     override fun findById(id: Int): KindEntity? {
         return databaseConnection.queryOne(
-            KindEntity(),
+            abstractEntity,
             kindMapper,
             "id = $id",
             null,
@@ -43,7 +53,7 @@ class KindRepository(context: Context) : KindRepositoryInterface {
 
     override fun findAll(): List<KindEntity> {
         return databaseConnection.query(
-            KindEntity(),
+            abstractEntity,
             kindMapper,
             null,
             null,
@@ -52,6 +62,6 @@ class KindRepository(context: Context) : KindRepositoryInterface {
     }
 
     override fun deleteById(id: Int) {
-        TODO("Not yet implemented")
+        databaseConnection.delete(abstractEntity, "id = $id")
     }
 }

@@ -2,13 +2,10 @@ package com.github.nunes03.av2.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.nunes03.av2.R
-import com.github.nunes03.av2.database.repositories.KindRepository
-import com.github.nunes03.av2.entities.KindEntity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,12 +19,8 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener { login() }
         createAccountButton.setOnClickListener { createAccount() }
 
-        val kindRepository = KindRepository(applicationContext)
-        val kinds = kindRepository.findAll()
-
-        kinds.forEach {
-            kind -> Log.d(LoginActivity::class.simpleName, "Id: ${kind?.name} | Name: ${kind?.name}")
-        }
+        val kindActivity = Intent(this, KindActivity::class.java);
+        startActivity(kindActivity);
     }
 
     private fun login() {
