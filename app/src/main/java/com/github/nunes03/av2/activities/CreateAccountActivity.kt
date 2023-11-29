@@ -1,12 +1,11 @@
-package com.github.nunes03.av1.activities
+package com.github.nunes03.av2.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import com.github.nunes03.av1.R
-import com.github.nunes03.av1.entities.UserEntity
-import com.github.nunes03.av1.database.repositories.UserRepository
+import com.github.nunes03.av2.R
+import com.github.nunes03.av2.entities.UserEntity
 
 class CreateAccountActivity : AppCompatActivity() {
 
@@ -27,7 +26,6 @@ class CreateAccountActivity : AppCompatActivity() {
     private fun save() {
         if (isValid()) {
             val newUser = buildUser()
-            UserRepository.saveUser(newUser)
         }
     }
 
@@ -42,7 +40,7 @@ class CreateAccountActivity : AppCompatActivity() {
     private fun isEmailValid(): Boolean {
         val email = getTextEmail().text.toString()
 
-        if (UserRepository.existByEmail(email)) {
+        if (true) {
             getTextValidate().text = "E-mail já cadastrado"
 
             return false;

@@ -1,4 +1,4 @@
-package com.github.nunes03.av1.entities
+package com.github.nunes03.av2.entities
 
 class AnimalEntity(
     var id: Int,

@@ -1,4 +1,4 @@
-package com.github.nunes03.av1
+package com.github.nunes03.av2
 
 import org.junit.Test
 

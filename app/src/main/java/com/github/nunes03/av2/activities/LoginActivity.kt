@@ -1,12 +1,14 @@
-package com.github.nunes03.av1.activities
+package com.github.nunes03.av2.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.github.nunes03.av1.R
-import com.github.nunes03.av1.database.repositories.UserRepository
+import com.github.nunes03.av2.R
+import com.github.nunes03.av2.database.repositories.KindRepository
+import com.github.nunes03.av2.entities.KindEntity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,13 +21,20 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener { login() }
         createAccountButton.setOnClickListener { createAccount() }
+
+        val kindRepository = KindRepository(applicationContext)
+        val kinds = kindRepository.findAll()
+
+        kinds.forEach {
+            kind -> Log.d(LoginActivity::class.simpleName, "Id: ${kind?.name} | Name: ${kind?.name}")
+        }
     }
 
     private fun login() {
         val email = getTextEmail().text.toString()
         val password = getTextLogin().text.toString()
 
-        if (UserRepository.existByEmailAndPassword(email, password)) {
+        if (true) {
             getTextValidate().text = ""
 
             val homeActivity = Intent(this, Tela1Activity::class.java);

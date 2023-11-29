@@ -1,12 +1,12 @@
-package com.github.nunes03.av1.database
+package com.github.nunes03.av2.database
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.github.nunes03.av1.entities.AbstractEntity
-import com.github.nunes03.av1.mappers.interfaces.MapperInterface
+import com.github.nunes03.av2.entities.AbstractEntity
+import com.github.nunes03.av2.mappers.interfaces.MapperInterface
 
 class DatabaseConnection(private val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -126,45 +126,34 @@ class DatabaseConnection(private val context: Context) :
         }
     }
 
-    fun <T> queryOne(
+    fun <T : AbstractEntity> queryOne(
         entity: AbstractEntity,
         mapperInterface: MapperInterface<T>,
-        selectColumns: List<String>,
-        whereConditions: List<String>,
-        groupBy: String,
-        orderBy: String
-    ): T {
-        val databaseConnection = DatabaseConnection(context)
-        val sqLiteDatabase = databaseConnection.readableDatabase
+        whereCondition: String?,
+        groupBy: String?,
+        orderBy: String?
+    ): T? {
+        val response = query(
+            entity,
+            mapperInterface,
+            whereCondition,
+            groupBy,
+            orderBy
+        )
 
-        try {
-            val cursor = sqLiteDatabase.query(
-                entity.getTableName(),
-                selectColumns.toTypedArray(),
-                null,
-                whereConditions.toTypedArray(),
-                groupBy,
-                null,
-                orderBy,
-            )
-
-            cursor.moveToNext()
-            return mapperInterface.convert(cursor)
-        } catch (exception: Exception) {
-            throw RuntimeException("Error when executing database query:", exception);
-        } finally {
-            databaseConnection.close()
-            sqLiteDatabase.close()
+        if (response.isEmpty()) {
+            return null
         }
+
+        return response[0];
     }
 
-    fun <T> query(
+    fun <T : AbstractEntity> query(
         entity: AbstractEntity,
         mapperInterface: MapperInterface<T>,
-        selectColumns: List<String>,
-        whereConditions: List<String>,
-        groupBy: String,
-        orderBy: String
+        whereCondition: String?,
+        groupBy: String?,
+        orderBy: String?
     ): List<T> {
         val databaseConnection = DatabaseConnection(context)
         val sqLiteDatabase = databaseConnection.readableDatabase
@@ -172,18 +161,18 @@ class DatabaseConnection(private val context: Context) :
         try {
             val cursor = sqLiteDatabase.query(
                 entity.getTableName(),
-                selectColumns.toTypedArray(),
+                arrayOf("*"),
+                whereCondition,
                 null,
-                whereConditions.toTypedArray(),
                 groupBy,
                 null,
                 orderBy,
             )
 
-            val response: List<T> = ArrayList()
+            val response: ArrayList<T> = ArrayList()
 
             while (cursor.moveToNext()) {
-                response.plus(mapperInterface.convert(cursor))
+                response.add(mapperInterface.convert(cursor))
             }
 
             cursor.close()

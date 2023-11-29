@@ -1,8 +1,8 @@
-package com.github.nunes03.av1.mappers
+package com.github.nunes03.av2.mappers
 
 import android.database.Cursor
-import com.github.nunes03.av1.entities.UserEntity
-import com.github.nunes03.av1.mappers.interfaces.UserMapperInterface
+import com.github.nunes03.av2.entities.UserEntity
+import com.github.nunes03.av2.mappers.interfaces.UserMapperInterface
 
 class UserMapper : UserMapperInterface {
 

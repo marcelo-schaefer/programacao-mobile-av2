@@ -1,4 +1,4 @@
-package com.github.nunes03.av1.activities
+package com.github.nunes03.av2.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.github.nunes03.av1.R
-import com.github.nunes03.av1.entities.UserEntity
+import com.github.nunes03.av2.R
+import com.github.nunes03.av2.entities.UserEntity
 
 class Tela1Activity : AppCompatActivity() {
 
