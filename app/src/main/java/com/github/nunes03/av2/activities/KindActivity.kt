@@ -22,6 +22,10 @@ class KindActivity : AppCompatActivity() {
 
     private var idSelectedKind: Int = 0
 
+    override fun onBackPressed() {
+        finish()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kind)

@@ -13,30 +13,19 @@
         android:theme="@style/Theme.Av2"
         tools:targetApi="24">
         <activity
+            android:name=".activities.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ConsultationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AnimalActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.KindActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.Tela1Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.LoginActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".activities.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.Tela2Activity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-        <activity
-            android:name=".activities.CreateAccountActivity"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>
