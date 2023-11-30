@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
     tools:context=".activities.KindActivity">
 
     <LinearLayout
@@ -25,6 +26,7 @@
             android:ems="10"
             android:hint="Nome"
             android:inputType="text"
+            android:selectAllOnFocus="false"
             android:textAlignment="center" />
     </LinearLayout>
 

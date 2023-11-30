@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,7 @@ class KindActivity : AppCompatActivity() {
         setContentView(R.layout.activity_kind)
 
         initVariables()
-        defineButtonFunction()
+        defineClickFunction()
         prepareListView()
         updateList()
     }
@@ -36,29 +37,31 @@ class KindActivity : AppCompatActivity() {
         this.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, kinds)
     }
 
-    private fun defineButtonFunction() {
+    private fun defineClickFunction() {
         val saveButton = findViewById<Button>(R.id.saveKindButton)
         val editButton = findViewById<Button>(R.id.editKindButton)
+        val nameKindEditText = findViewById<EditText>(R.id.nameKindText)
 
         saveButton.setOnClickListener { save() }
         editButton.setOnClickListener { edit() }
+        nameKindEditText.setOnClickListener { nameKindEditText.requestFocus() }
     }
 
     private fun prepareListView() {
         val listView: ListView = findViewById(R.id.kindListView)
-        val nameKindText = findViewById<TextView>(R.id.nameKindText)
+        val nameKindEditText = findViewById<TextView>(R.id.nameKindText)
 
-        listView.setOnItemClickListener { parent, view, position, id ->
+        listView.adapter = adapter
+        listView.setOnItemClickListener { _, _, position, _ ->
             val kindSplit = this.kinds[position].split("-")
-            this.idSelectedKind = kindSplit[0].toInt()
-            nameKindText.text = kindSplit[1]
+            this.idSelectedKind = kindSplit[0].trim().toInt()
+            nameKindEditText.text = kindSplit[1]
         }
 
-        listView.setOnItemLongClickListener { parent, view, position, id ->
+        listView.setOnItemLongClickListener { _, _, position, _ ->
             val kindSplit = this.kinds[position].split("-")
-            this.idSelectedKind = kindSplit[0].toInt()
+            this.idSelectedKind = kindSplit[0].trim().toInt()
             deleteById()
-            this.kinds.clear()
             true
         }
     }
@@ -72,19 +75,25 @@ class KindActivity : AppCompatActivity() {
 
         kindRepository.create(kindEntity)
 
+        nameKindText.text = ""
         updateList()
     }
 
     private fun edit() {
-        val nameKindText = findViewById<TextView>(R.id.nameKindText)
-        val currentName = nameKindText.text.toString().trim()
+        if (this.idSelectedKind != 0) {
+            val nameKindText = findViewById<TextView>(R.id.nameKindText)
+            val currentName = nameKindText.text.toString().trim()
 
-        val kindEntity = KindEntity()
-        kindEntity.id = idSelectedKind
-        kindEntity.name = currentName
+            val kindEntity = KindEntity()
+            kindEntity.id = idSelectedKind
+            kindEntity.name = currentName
 
-        kindRepository.updateById(kindEntity)
-        updateList()
+            kindRepository.updateById(kindEntity)
+
+            idSelectedKind = 0
+            nameKindText.text = ""
+            updateList()
+        }
     }
 
     private fun deleteById() {
@@ -93,20 +102,14 @@ class KindActivity : AppCompatActivity() {
     }
 
     private fun updateList() {
-        log("Entrou no updateList")
-
         val kindEntities = kindRepository.findAll()
+        kinds.clear()
 
         kindEntities.forEach { kindEntity ->
-            val data = "${kindEntity.id} - ${kindEntity.name}";
-            log(data)
+            val data = "${kindEntity.id} - ${kindEntity.name}"
             kinds.add(data)
         }
 
         adapter.notifyDataSetChanged()
-    }
-
-    private fun log(message: String) {
-        Log.d(KindActivity::class.simpleName, message)
     }
 }
