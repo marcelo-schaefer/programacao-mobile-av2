@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.github.nunes03.av1"
+    namespace = "com.github.nunes03.av2"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.github.nunes03.av1"
+        applicationId = "com.github.nunes03.av2"
         minSdk = 22
         targetSdk = 33
         versionCode = 1
