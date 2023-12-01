@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Av2"
         tools:targetApi="24">
         <activity
+            android:name=".adapters.AnimalListViewAdapter"
+            android:exported="false" />
+        <activity
             android:name=".activities.UserActivity"
             android:exported="false" />
         <activity

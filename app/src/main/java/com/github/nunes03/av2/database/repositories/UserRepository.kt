@@ -1,7 +1,7 @@
 package com.github.nunes03.av2.database.repositories
 
 import com.github.nunes03.av2.database.repositories.interfaces.UserRepositoryInterface
-import com.github.nunes03.av2.entities.UserEntity
+import com.github.nunes03.av2.database.entities.UserEntity
 
 class UserRepository : UserRepositoryInterface {
 

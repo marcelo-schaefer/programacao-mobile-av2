@@ -6,4 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".activities.AnimalActivity">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/nameAnimalText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nome"
+            android:inputType="text"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/kindAnimalSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

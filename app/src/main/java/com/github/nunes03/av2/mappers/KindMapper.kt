@@ -1,7 +1,7 @@
 package com.github.nunes03.av2.mappers
 
 import android.database.Cursor
-import com.github.nunes03.av2.entities.KindEntity
+import com.github.nunes03.av2.database.entities.KindEntity
 import com.github.nunes03.av2.mappers.interfaces.KindMapperInterface
 
 class KindMapper : KindMapperInterface {

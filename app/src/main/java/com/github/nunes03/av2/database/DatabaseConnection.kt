@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.github.nunes03.av2.entities.AbstractEntity
+import com.github.nunes03.av2.database.entities.AbstractEntity
 import com.github.nunes03.av2.mappers.interfaces.MapperInterface
 
 class DatabaseConnection(private val context: Context) :
