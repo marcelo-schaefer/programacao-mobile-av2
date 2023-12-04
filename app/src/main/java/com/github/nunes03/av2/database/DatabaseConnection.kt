@@ -19,8 +19,7 @@ class DatabaseConnection(private val context: Context) :
         const val CREATE_TABLE_USER: String = "create table `user` (" +
                 "id integer primary key autoincrement," +
                 "name text not null," +
-                "email text not null," +
-                "password text not null" +
+                "email text not null" +
                 ");"
 
         const val CREATE_TABLE_KIND: String = "create table kind (" +
@@ -31,7 +30,6 @@ class DatabaseConnection(private val context: Context) :
         const val CREATE_TABLE_ANIMAL: String = "create table animal (" +
                 "id integer primary key autoincrement," +
                 "name text not null," +
-                "description text," +
                 "kind_id integer not null," +
                 "user_id integer not null, " +
                 "constraint fk_kind_animal" +
@@ -45,6 +43,7 @@ class DatabaseConnection(private val context: Context) :
         const val CREATE_TABLE_CONSULTATION: String = "create table consultation (" +
                 "id integer primary key autoincrement," +
                 "scheduled_time text not null," +
+                "description text not null," +
                 "animal_id integer not null," +
                 "constraint fk_consultation_animal" +
                 "    foreign key (animal_id)" +

@@ -11,8 +11,7 @@ import com.github.nunes03.av2.database.entities.AnimalEntity
 class AnimalListViewAdapter(
     private val context: Activity,
     private val animals: ArrayList<AnimalEntity>
-) :
-    ArrayAdapter<AnimalEntity>(context, R.layout.adapter_animal_list_view_adapter, animals) {
+) : ArrayAdapter<AnimalEntity>(context, R.layout.adapter_animal_list_view_adapter, animals) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = this.context.layoutInflater
@@ -24,8 +23,10 @@ class AnimalListViewAdapter(
         val kindInfo = rowView.findViewById<TextView>(R.id.kindInfoAnimalListViewAdapter)
 
         title.text = "${this.animals[position].id} - ${this.animals[position].name}"
-        userInfo.text = "Usuário: ${this.animals[position].user?.id} - ${this.animals[position].user?.name}"
-        kindInfo.text = "Espécie: ${this.animals[position].kind?.id} - ${this.animals[position].kind?.name}"
+        userInfo.text =
+            "Usuário: ${this.animals[position].user?.id} - ${this.animals[position].user?.name}"
+        kindInfo.text =
+            "Espécie: ${this.animals[position].kind?.id} - ${this.animals[position].kind?.name}"
 
         return rowView
     }

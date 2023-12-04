@@ -6,7 +6,7 @@ interface RepositoryInterface<E> {
 
     fun updateById(entity: E)
 
-    fun findById(id: Int): E?
+    fun findById(id: Int?): E?
 
     fun findAll(): List<E>
 
