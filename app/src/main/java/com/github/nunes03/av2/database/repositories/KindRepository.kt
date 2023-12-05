@@ -41,7 +41,7 @@ class KindRepository(context: Context) : KindRepositoryInterface {
         )
     }
 
-    override fun findById(id: Int): KindEntity? {
+    override fun findById(id: Int?): KindEntity? {
         return databaseConnection.queryOne(
             abstractEntity,
             kindMapper,
