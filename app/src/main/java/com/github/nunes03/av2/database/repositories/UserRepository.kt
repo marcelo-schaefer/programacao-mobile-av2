@@ -1,5 +1,6 @@
 package com.github.nunes03.av2.database.repositories
 
+import android.content.ContentValues
 import android.content.Context
 import com.github.nunes03.av2.database.DatabaseConnection
 import com.github.nunes03.av2.database.entities.AbstractEntity
@@ -20,11 +21,26 @@ class UserRepository(context: Context) : UserRepositoryInterface {
     }
 
     override fun create(entity: UserEntity): Long {
-        TODO("Not yet implemented")
+        val contentValues = ContentValues()
+        contentValues.put("name", entity.name)
+        contentValues.put("email", entity.email)
+
+        return databaseConnection.insert(
+            abstractEntity,
+            contentValues
+        )
     }
 
     override fun updateById(entity: UserEntity) {
-        TODO("Not yet implemented")
+        val contentValues = ContentValues()
+        contentValues.put("name", entity.name)
+        contentValues.put("email", entity.email)
+
+        databaseConnection.update(
+            abstractEntity,
+            contentValues,
+            "id = ${entity.id}"
+        )
     }
 
     override fun findById(id: Int?): UserEntity? {
@@ -38,10 +54,16 @@ class UserRepository(context: Context) : UserRepositoryInterface {
     }
 
     override fun findAll(): List<UserEntity> {
-        TODO("Not yet implemented")
+        return databaseConnection.query(
+            abstractEntity,
+            userMapper,
+            null,
+            null,
+            null
+        )
     }
 
     override fun deleteById(id: Int) {
-        TODO("Not yet implemented")
+        databaseConnection.delete(abstractEntity, "id = $id")
     }
 }

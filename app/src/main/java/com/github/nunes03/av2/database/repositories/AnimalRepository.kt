@@ -1,5 +1,6 @@
 package com.github.nunes03.av2.database.repositories;
 
+import android.content.ContentValues
 import android.content.Context
 import com.github.nunes03.av2.database.DatabaseConnection
 import com.github.nunes03.av2.database.entities.AbstractEntity
@@ -20,15 +21,38 @@ class AnimalRepository(context: Context) : AnimalRepositoryInterface {
     }
 
     override fun create(entity: AnimalEntity): Long {
-        TODO("Not yet implemented")
+        val contentValues = ContentValues()
+        contentValues.put("name", entity.name)
+        contentValues.put("kind_id", entity.kind?.id)
+        contentValues.put("user_id", entity.user?.id)
+
+        return databaseConnection.insert(
+            abstractEntity,
+            contentValues
+        )
     }
 
     override fun updateById(entity: AnimalEntity) {
-        TODO("Not yet implemented")
+        val contentValues = ContentValues()
+        contentValues.put("name", entity.name)
+        contentValues.put("kind_id", entity.kind?.id)
+        contentValues.put("user_id", entity.user?.id)
+
+        databaseConnection.update(
+            abstractEntity,
+            contentValues,
+            "id = ${entity.id}"
+        )
     }
 
     override fun findById(id: Int?): AnimalEntity? {
-        TODO("Not yet implemented")
+        return databaseConnection.queryOne(
+            abstractEntity,
+            animalMapper,
+            "id = $id",
+            null,
+            null
+        )
     }
 
     override fun findAll(): List<AnimalEntity> {
@@ -42,6 +66,6 @@ class AnimalRepository(context: Context) : AnimalRepositoryInterface {
     }
 
     override fun deleteById(id: Int) {
-        TODO("Not yet implemented")
+        databaseConnection.delete(abstractEntity, "id = $id")
     }
 }

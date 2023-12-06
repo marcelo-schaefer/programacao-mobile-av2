@@ -76,7 +76,7 @@ class AnimalActivity : AppCompatActivity() {
                 id: Long
             ) {
                 val kindSelected = parentView.getItemAtPosition(position).toString()
-                idKindSelect = kindSelected.split("-")[0].toInt()
+                idKindSelect = kindSelected.split("-")[0].trim().toInt()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -90,7 +90,7 @@ class AnimalActivity : AppCompatActivity() {
                 id: Long
             ) {
                 val userSelected = parentView.getItemAtPosition(position).toString()
-                idUserSelect = userSelected.split("-")[0].toInt()
+                idUserSelect = userSelected.split("-")[0].trim().toInt()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
