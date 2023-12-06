@@ -27,7 +27,7 @@ class AnimalRepository(context: Context) : AnimalRepositoryInterface {
         TODO("Not yet implemented")
     }
 
-    override fun findById(id: Int): AnimalEntity? {
+    override fun findById(id: Int?): AnimalEntity? {
         TODO("Not yet implemented")
     }
 

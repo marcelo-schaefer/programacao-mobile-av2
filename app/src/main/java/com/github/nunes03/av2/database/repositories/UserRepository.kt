@@ -27,7 +27,7 @@ class UserRepository(context: Context) : UserRepositoryInterface {
         TODO("Not yet implemented")
     }
 
-    override fun findById(id: Int): UserEntity? {
+    override fun findById(id: Int?): UserEntity? {
         return databaseConnection.queryOne(
             abstractEntity,
             userMapper,
