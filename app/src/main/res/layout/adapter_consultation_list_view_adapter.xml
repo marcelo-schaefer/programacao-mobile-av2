@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".adapters.AnimalListViewAdapter">
-
+    tools:context=".adapters.ConsultationListViewAdapter">
 
     <TextView
         android:id="@+id/titleConsultationListViewAdapter"
@@ -18,6 +17,17 @@
         tools:layout_editor_absoluteY="28dp" />
 
     <TextView
+        android:id="@+id/scheduledTimeConsultationListViewAdapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="133dp"
+        tools:layout_editor_absoluteY="63dp"
+        />
+
+    <TextView
         android:id="@+id/animalInfoConsultationListViewAdapter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,15 +36,5 @@
         android:textSize="16sp"
         tools:layout_editor_absoluteX="133dp"
         tools:layout_editor_absoluteY="63dp" />
-
-    <TextView
-        android:id="@+id/userInfoAnimalListViewAdapter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="5dp"
-        android:textSize="16sp"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="94dp" />
 
 </LinearLayout>

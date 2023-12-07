@@ -10,5 +10,5 @@ interface RepositoryInterface<E> {
 
     fun findAll(): List<E>
 
-    fun deleteById(id: Int)
+    fun deleteById(id: Int?)
 }

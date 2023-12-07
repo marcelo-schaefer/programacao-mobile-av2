@@ -12,9 +12,9 @@ class DatabaseConnection(private val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        const val DATABASE_NAME: String = "pet_shop";
+        const val DATABASE_NAME: String = "pet_shop"
 
-        const val DATABASE_VERSION: Int = 1;
+        const val DATABASE_VERSION: Int = 2
 
         const val CREATE_TABLE_USER: String = "create table `user` (" +
                 "id integer primary key autoincrement," +

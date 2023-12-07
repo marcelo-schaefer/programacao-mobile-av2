@@ -4,27 +4,27 @@ import android.content.ContentValues
 import android.content.Context
 import com.github.nunes03.av2.database.DatabaseConnection
 import com.github.nunes03.av2.database.entities.AbstractEntity
-import com.github.nunes03.av2.database.entities.AnimalEntity
-import com.github.nunes03.av2.database.repositories.interfaces.AnimalRepositoryInterface
-import com.github.nunes03.av2.mappers.AnimalMapper
+import com.github.nunes03.av2.database.entities.ConsultationEntity
+import com.github.nunes03.av2.database.repositories.interfaces.ConsultationRepositoryInterface
+import com.github.nunes03.av2.mappers.ConsultationMapper
 
-class AnimalRepository(context: Context) : AnimalRepositoryInterface {
+class ConsultationRepository(context: Context) : ConsultationRepositoryInterface {
 
     private val databaseConnection: DatabaseConnection
 
-    private val animalMapper = AnimalMapper()
+    private val consultationMapper = ConsultationMapper()
 
-    private val abstractEntity: AbstractEntity = AnimalEntity()
+    private val abstractEntity: AbstractEntity = ConsultationEntity()
 
     init {
         this.databaseConnection = DatabaseConnection(context)
     }
 
-    override fun create(entity: AnimalEntity): Long {
+    override fun create(entity: ConsultationEntity): Long {
         val contentValues = ContentValues()
-        contentValues.put("name", entity.name)
-        contentValues.put("kind_id", entity.kind?.id)
-        contentValues.put("user_id", entity.user?.id)
+        contentValues.put("scheduled_time", entity.scheduledTime)
+        contentValues.put("description", entity.description)
+        contentValues.put("animal_id", entity.animal?.id)
 
         return databaseConnection.insert(
             abstractEntity,
@@ -32,11 +32,11 @@ class AnimalRepository(context: Context) : AnimalRepositoryInterface {
         )
     }
 
-    override fun updateById(entity: AnimalEntity) {
+    override fun updateById(entity: ConsultationEntity) {
         val contentValues = ContentValues()
-        contentValues.put("name", entity.name)
-        contentValues.put("kind_id", entity.kind?.id)
-        contentValues.put("user_id", entity.user?.id)
+        contentValues.put("description", entity.description)
+        contentValues.put("scheduled_time", entity.scheduledTime)
+        contentValues.put("animal_id", entity.animal?.id)
 
         databaseConnection.update(
             abstractEntity,
@@ -45,20 +45,20 @@ class AnimalRepository(context: Context) : AnimalRepositoryInterface {
         )
     }
 
-    override fun findById(id: Int?): AnimalEntity? {
+    override fun findById(id: Int?): ConsultationEntity? {
         return databaseConnection.queryOne(
             abstractEntity,
-            animalMapper,
+            consultationMapper,
             "id = $id",
             null,
             null
         )
     }
 
-    override fun findAll(): List<AnimalEntity> {
+    override fun findAll(): List<ConsultationEntity> {
         return databaseConnection.query(
             abstractEntity,
-            animalMapper,
+            consultationMapper,
             null,
             null,
             null

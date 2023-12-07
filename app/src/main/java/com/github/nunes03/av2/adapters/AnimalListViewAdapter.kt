@@ -18,9 +18,9 @@ class AnimalListViewAdapter(
 
         val rowView = inflater.inflate(R.layout.adapter_animal_list_view_adapter, null, true)
 
-        val title = rowView.findViewById<TextView>(R.id.titleAnimalListViewAdapter)
+        val title = rowView.findViewById<TextView>(R.id.titleConsultationListViewAdapter)
         val userInfo = rowView.findViewById<TextView>(R.id.userInfoAnimalListViewAdapter)
-        val kindInfo = rowView.findViewById<TextView>(R.id.kindInfoAnimalListViewAdapter)
+        val kindInfo = rowView.findViewById<TextView>(R.id.animalInfoConsultationListViewAdapter)
 
         title.text = "${this.animals[position].id} - ${this.animals[position].name}"
         userInfo.text =

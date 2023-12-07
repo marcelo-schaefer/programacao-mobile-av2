@@ -61,7 +61,7 @@ class KindRepository(context: Context) : KindRepositoryInterface {
         )
     }
 
-    override fun deleteById(id: Int) {
+    override fun deleteById(id: Int?) {
         databaseConnection.delete(abstractEntity, "id = $id")
     }
 }

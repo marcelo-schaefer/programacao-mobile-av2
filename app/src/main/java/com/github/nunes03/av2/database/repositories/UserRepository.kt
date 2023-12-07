@@ -63,7 +63,7 @@ class UserRepository(context: Context) : UserRepositoryInterface {
         )
     }
 
-    override fun deleteById(id: Int) {
+    override fun deleteById(id: Int?) {
         databaseConnection.delete(abstractEntity, "id = $id")
     }
 }

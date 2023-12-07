@@ -7,10 +7,13 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.nunes03.av2.R
 import com.github.nunes03.av2.adapters.AnimalListViewAdapter
 import com.github.nunes03.av2.database.entities.AnimalEntity
+import com.github.nunes03.av2.database.entities.KindEntity
+import com.github.nunes03.av2.database.entities.UserEntity
 import com.github.nunes03.av2.database.repositories.AnimalRepository
 import com.github.nunes03.av2.database.repositories.KindRepository
 import com.github.nunes03.av2.database.repositories.UserRepository
@@ -28,11 +31,13 @@ class AnimalActivity : AppCompatActivity() {
 
     private lateinit var userRepository: UserRepositoryInterface
 
-    private var idAnimalSelected: Int = 0;
+    private var idAnimalSelected: Int? = 0;
 
     private var idKindSelect: Int = 0
 
     private var idUserSelect: Int = 0
+
+    private lateinit var listViewAdapter: ArrayAdapter<AnimalEntity>;
 
     override fun onBackPressed() {
         finish()
@@ -43,6 +48,7 @@ class AnimalActivity : AppCompatActivity() {
         setContentView(R.layout.activity_animal)
 
         initVariables()
+        prepareListView()
         updateListView()
         updateKindSpinner()
         updateUserSpinner()
@@ -54,14 +60,32 @@ class AnimalActivity : AppCompatActivity() {
         this.animalRepository = AnimalRepository(this)
         this.kindRepository = KindRepository(this)
         this.userRepository = UserRepository(this)
+        this.listViewAdapter = AnimalListViewAdapter(this, this.animals);
+    }
+
+    private fun prepareListView() {
+        val animalListView: ListView = findViewById(R.id.animalListView)
+        val nameAnimalText = findViewById<TextView>(R.id.nameAnimalText)
+
+        animalListView.adapter = this.listViewAdapter
+        animalListView.setOnItemClickListener { _, _, position, _ ->
+            this.idAnimalSelected = this.animals[position].id
+            nameAnimalText.text = this.animals[position].name
+        }
+
+        animalListView.setOnItemLongClickListener { _, _, position, _ ->
+            this.idAnimalSelected = this.animals[position].id
+            deleteById()
+            true
+        }
     }
 
     private fun setButtonClicks() {
         val saveButton = findViewById<Button>(R.id.saveAnimalButton)
         val editButton = findViewById<Button>(R.id.editAnimalButton)
 
-        saveButton.setOnClickListener { createAnimal() }
-        editButton.setOnClickListener { editAnimal() }
+        saveButton.setOnClickListener { save() }
+        editButton.setOnClickListener { edit() }
     }
 
     private fun setClickSpinner() {
@@ -108,8 +132,7 @@ class AnimalActivity : AppCompatActivity() {
             animals.add(animalEntity)
         }
 
-        val listViewAdapter = AnimalListViewAdapter(this, animals)
-        listView.adapter = listViewAdapter
+        listView.adapter = this.listViewAdapter
     }
 
     private fun updateKindSpinner() {
@@ -144,11 +167,46 @@ class AnimalActivity : AppCompatActivity() {
         spinner.adapter = arrayAdapter
     }
 
-    private fun createAnimal() {
+    private fun save() {
+        val nameUserText = findViewById<TextView>(R.id.nameAnimalText)
+        val currentName = nameUserText.text.toString().trim()
 
+        val animalEntity = AnimalEntity()
+        animalEntity.name = currentName
+        animalEntity.user = UserEntity()
+        animalEntity.user?.id = idUserSelect
+        animalEntity.kind = KindEntity()
+        animalEntity.kind?.id = idKindSelect
+
+        animalRepository.create(animalEntity)
+
+        nameUserText.text = ""
+
+        updateListView()
     }
 
-    private fun editAnimal() {
+    private fun edit() {
+        if (this.idAnimalSelected != 0) {
+            val nameUserText = findViewById<TextView>(R.id.nameAnimalText)
+            val currentName = nameUserText.text.toString().trim()
 
+            val animalEntity = AnimalEntity()
+            animalEntity.id = idAnimalSelected
+            animalEntity.name = currentName
+            animalEntity.user = UserEntity()
+            animalEntity.user?.id = idUserSelect
+            animalEntity.kind = KindEntity()
+            animalEntity.kind?.id = idKindSelect
+
+            animalRepository.updateById(animalEntity)
+
+            nameUserText.text = ""
+            updateListView()
+        }
+    }
+
+    private fun deleteById() {
+        animalRepository.deleteById(this.idAnimalSelected)
+        updateListView()
     }
 }
