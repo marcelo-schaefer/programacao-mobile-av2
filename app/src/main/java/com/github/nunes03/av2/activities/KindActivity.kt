@@ -5,12 +5,13 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.nunes03.av2.R
 import com.github.nunes03.av2.database.repositories.KindRepository
-import com.github.nunes03.av2.entities.KindEntity
+import com.github.nunes03.av2.database.entities.KindEntity
 
 class KindActivity : AppCompatActivity() {
 
@@ -45,9 +46,11 @@ class KindActivity : AppCompatActivity() {
         val saveButton = findViewById<Button>(R.id.saveKindButton)
         val editButton = findViewById<Button>(R.id.editKindButton)
         val nameKindEditText = findViewById<EditText>(R.id.nameKindText)
+        val arrowBackImage = findViewById<ImageView>(R.id.right_icon_two)
 
         saveButton.setOnClickListener { save() }
         editButton.setOnClickListener { edit() }
+        arrowBackImage.setOnClickListener{onBackPressed()}
         nameKindEditText.setOnClickListener { nameKindEditText.requestFocus() }
     }
 

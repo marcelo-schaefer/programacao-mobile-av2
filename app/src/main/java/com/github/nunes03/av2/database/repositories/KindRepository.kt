@@ -4,8 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import com.github.nunes03.av2.database.DatabaseConnection
 import com.github.nunes03.av2.database.repositories.interfaces.KindRepositoryInterface
-import com.github.nunes03.av2.entities.AbstractEntity
-import com.github.nunes03.av2.entities.KindEntity
+import com.github.nunes03.av2.database.entities.AbstractEntity
+import com.github.nunes03.av2.database.entities.KindEntity
 import com.github.nunes03.av2.mappers.KindMapper
 
 class KindRepository(context: Context) : KindRepositoryInterface {
@@ -41,7 +41,7 @@ class KindRepository(context: Context) : KindRepositoryInterface {
         )
     }
 
-    override fun findById(id: Int): KindEntity? {
+    override fun findById(id: Int?): KindEntity? {
         return databaseConnection.queryOne(
             abstractEntity,
             kindMapper,
@@ -61,7 +61,7 @@ class KindRepository(context: Context) : KindRepositoryInterface {
         )
     }
 
-    override fun deleteById(id: Int) {
+    override fun deleteById(id: Int?) {
         databaseConnection.delete(abstractEntity, "id = $id")
     }
 }

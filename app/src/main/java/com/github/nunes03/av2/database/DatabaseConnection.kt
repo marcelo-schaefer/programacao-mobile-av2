@@ -5,22 +5,21 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.github.nunes03.av2.entities.AbstractEntity
+import com.github.nunes03.av2.database.entities.AbstractEntity
 import com.github.nunes03.av2.mappers.interfaces.MapperInterface
 
 class DatabaseConnection(private val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        const val DATABASE_NAME: String = "pet_shop";
+        const val DATABASE_NAME: String = "pet_shop"
 
-        const val DATABASE_VERSION: Int = 1;
+        const val DATABASE_VERSION: Int = 2
 
         const val CREATE_TABLE_USER: String = "create table `user` (" +
                 "id integer primary key autoincrement," +
                 "name text not null," +
-                "email text not null," +
-                "password text not null" +
+                "email text not null" +
                 ");"
 
         const val CREATE_TABLE_KIND: String = "create table kind (" +
@@ -31,7 +30,6 @@ class DatabaseConnection(private val context: Context) :
         const val CREATE_TABLE_ANIMAL: String = "create table animal (" +
                 "id integer primary key autoincrement," +
                 "name text not null," +
-                "description text," +
                 "kind_id integer not null," +
                 "user_id integer not null, " +
                 "constraint fk_kind_animal" +
@@ -45,6 +43,7 @@ class DatabaseConnection(private val context: Context) :
         const val CREATE_TABLE_CONSULTATION: String = "create table consultation (" +
                 "id integer primary key autoincrement," +
                 "scheduled_time text not null," +
+                "description text not null," +
                 "animal_id integer not null," +
                 "constraint fk_consultation_animal" +
                 "    foreign key (animal_id)" +

@@ -7,12 +7,14 @@
     android:focusable="true"
     tools:context=".activities.KindActivity">
 
+    <include layout="@layout/activity_action_bar"/>
+
     <LinearLayout
         android:id="@+id/linearLayout7"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +34,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="500dp"
+        android:layout_height="400dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -51,7 +53,7 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
