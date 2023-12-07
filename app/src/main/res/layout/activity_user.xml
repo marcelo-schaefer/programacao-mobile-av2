@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".activities.UserActivity">
 
+    <include layout="@layout/activity_action_bar"/>
+
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="110dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +69,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="510dp"
+        android:layout_height="450dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

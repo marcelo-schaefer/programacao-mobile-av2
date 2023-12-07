@@ -1,12 +1,13 @@
 package com.github.nunes03.av2.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.github.nunes03.av2.R
 import com.github.nunes03.av2.database.entities.UserEntity
 import com.github.nunes03.av2.database.repositories.UserRepository
@@ -45,9 +46,11 @@ class UserActivity : AppCompatActivity() {
         val editButton = findViewById<Button>(R.id.editUserButton)
         val nameUserEditText = findViewById<EditText>(R.id.nameUserText)
         val emailUserEditText = findViewById<EditText>(R.id.emailUserText)
+        val arrowBackImage = findViewById<ImageView>(R.id.right_icon_two)
 
         saveButton.setOnClickListener { save() }
         editButton.setOnClickListener { edit() }
+        arrowBackImage.setOnClickListener { onBackPressed() }
         nameUserEditText.setOnClickListener { nameUserEditText.requestFocus() }
         emailUserEditText.setOnClickListener { emailUserEditText.requestFocus() }
     }

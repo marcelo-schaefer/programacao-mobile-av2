@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
@@ -36,11 +37,9 @@ class AnimalActivity : AppCompatActivity() {
 
     private var idKindSelect: Int = 0
 
-    private var idKindFilterSelect: Int = 0
-
     private var idUserSelect: Int = 0
 
-    private lateinit var listViewAdapter: ArrayAdapter<AnimalEntity>;
+    private lateinit var listViewAdapter: ArrayAdapter<AnimalEntity>
 
     override fun onBackPressed() {
         finish()
@@ -55,7 +54,6 @@ class AnimalActivity : AppCompatActivity() {
         updateListView()
         updateKindSpinner()
         updateUserSpinner()
-        updateKindFilterSpinner()
         setButtonClicks()
         setClickSpinner()
     }
@@ -87,17 +85,16 @@ class AnimalActivity : AppCompatActivity() {
     private fun setButtonClicks() {
         val saveButton = findViewById<Button>(R.id.saveAnimalButton)
         val editButton = findViewById<Button>(R.id.editAnimalButton)
-        val filterButton = findViewById<Button>(R.id.filterAnimalButton)
+        val arrowBackImage = findViewById<ImageView>(R.id.right_icon_two)
 
         saveButton.setOnClickListener { save() }
         editButton.setOnClickListener { edit() }
-        filterButton.setOnClickListener { filter() }
+        arrowBackImage.setOnClickListener{onBackPressed()}
     }
 
     private fun setClickSpinner() {
         val kindSpinner = findViewById<Spinner>(R.id.kindAnimalSpinner)
         val userSpinner = findViewById<Spinner>(R.id.userAnimalSpinner)
-        val kindFilterSpinner = findViewById<Spinner>(R.id.kindAnimalFilterSpinner)
 
         kindSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -122,20 +119,6 @@ class AnimalActivity : AppCompatActivity() {
             ) {
                 val userSelected = parentView.getItemAtPosition(position).toString()
                 idUserSelect = userSelected.split("-")[0].trim().toInt()
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
-
-        kindFilterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView: AdapterView<*>,
-                selectedItemView: View,
-                position: Int,
-                id: Long
-            ) {
-                val kindFilterSelected = parentView.getItemAtPosition(position).toString()
-                idKindFilterSelect = kindFilterSelected.split("-")[0].trim().toInt()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -196,22 +179,6 @@ class AnimalActivity : AppCompatActivity() {
         spinner.adapter = arrayAdapter
     }
 
-    private fun updateKindFilterSpinner() {
-        val kinds = ArrayList<String>()
-
-        kindRepository.findAll().forEach { kindEntity ->
-            val kindData = "${kindEntity.id} - ${kindEntity.name}"
-
-            kinds.add(kindData)
-        }
-
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, kinds)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        val spinner = findViewById<Spinner>(R.id.kindAnimalFilterSpinner)
-        spinner.adapter = arrayAdapter
-    }
-
     private fun save() {
         val nameUserText = findViewById<TextView>(R.id.nameAnimalText)
         val currentName = nameUserText.text.toString().trim()
@@ -251,27 +218,6 @@ class AnimalActivity : AppCompatActivity() {
 
             updateListView()
         }
-    }
-
-    private fun filter() {
-        val nameAnimalFilterText = findViewById<TextView>(R.id.nameAnimalFilterText)
-        val filterName = nameAnimalFilterText.text.toString().trim()
-
-        val kindEntity = KindEntity()
-        kindEntity.id = idKindFilterSelect
-
-        this.animals.clear()
-        val animalsFound = if (filterName.isNotEmpty()) {
-            animalRepository.findByNameContainsAndKind(filterName, kindEntity)
-        } else {
-            animalRepository.findByKind(kindEntity)
-        }
-
-        animalsFound.forEach { animalEntity -> this.animals.add(animalEntity) }
-
-        updateListViewFilter()
-
-        Log.d(AnimalActivity::class.simpleName, "Animals found: ${this.animals.size}");
     }
 
     private fun deleteById() {

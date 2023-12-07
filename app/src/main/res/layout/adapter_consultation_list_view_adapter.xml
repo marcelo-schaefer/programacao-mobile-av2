@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="2dp"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="133dp"
         tools:layout_editor_absoluteY="63dp"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="2dp"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="133dp"
         tools:layout_editor_absoluteY="63dp" />

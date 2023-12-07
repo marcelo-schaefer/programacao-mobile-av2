@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
@@ -76,9 +77,11 @@ class ConsultationActivity : AppCompatActivity() {
     private fun setButtonClicks() {
         val saveButton = findViewById<Button>(R.id.saveConsultationButton)
         val editButton = findViewById<Button>(R.id.editConsultationButton)
+        val arrowBackImage = findViewById<ImageView>(R.id.right_icon_two)
 
         saveButton.setOnClickListener { save() }
         editButton.setOnClickListener { edit() }
+        arrowBackImage.setOnClickListener{onBackPressed()}
     }
 
     private fun setClickSpinner() {
