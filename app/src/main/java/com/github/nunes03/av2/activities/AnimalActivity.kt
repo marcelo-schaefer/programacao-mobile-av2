@@ -125,15 +125,6 @@ class AnimalActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateListViewFilter() {
-        this.animals.forEachIndexed { index, animalEntity ->
-            animalEntity.kind = this.kindRepository.findById(animalEntity.kind?.id)
-            animalEntity.user = this.userRepository.findById(animalEntity.user?.id)
-        }
-
-        listViewAdapter.notifyDataSetChanged()
-    }
-
     private fun updateListView() {
         this.animals.clear()
 
