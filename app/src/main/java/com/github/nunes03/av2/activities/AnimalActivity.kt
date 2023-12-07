@@ -24,7 +24,7 @@ import com.github.nunes03.av2.database.repositories.interfaces.UserRepositoryInt
 
 class AnimalActivity : AppCompatActivity() {
 
-    private var animals = ArrayList<AnimalEntity>()
+    private val animals = ArrayList<AnimalEntity>()
 
     private lateinit var animalRepository: AnimalRepositoryInterface
 
@@ -142,19 +142,23 @@ class AnimalActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateListView() {
-        if (this.animals.isEmpty()) {
-            this.animalRepository.findAll().forEach { animalEntity ->
-                animalEntity.kind = this.kindRepository.findById(animalEntity.kind?.id)
-                animalEntity.user = this.userRepository.findById(animalEntity.user?.id)
+    private fun updateListViewFilter() {
+        this.animals.forEachIndexed { index, animalEntity ->
+            animalEntity.kind = this.kindRepository.findById(animalEntity.kind?.id)
+            animalEntity.user = this.userRepository.findById(animalEntity.user?.id)
+        }
 
-                this.animals.add(animalEntity)
-            }
-        } else {
-            for (animalEntity in this.animals) {
-                animalEntity.kind = this.kindRepository.findById(animalEntity.kind?.id)
-                animalEntity.user = this.userRepository.findById(animalEntity.user?.id)
-            }
+        listViewAdapter.notifyDataSetChanged()
+    }
+
+    private fun updateListView() {
+        this.animals.clear()
+
+        this.animalRepository.findAll().forEach { animalEntity ->
+            animalEntity.kind = this.kindRepository.findById(animalEntity.kind?.id)
+            animalEntity.user = this.userRepository.findById(animalEntity.user?.id)
+
+            this.animals.add(animalEntity)
         }
 
         listViewAdapter.notifyDataSetChanged()
@@ -223,7 +227,6 @@ class AnimalActivity : AppCompatActivity() {
 
         nameUserText.text = ""
 
-        this.animals.clear();
         updateListView()
     }
 
@@ -246,7 +249,6 @@ class AnimalActivity : AppCompatActivity() {
 
             nameUserText.text = ""
 
-            this.animals.clear()
             updateListView()
         }
     }
@@ -259,19 +261,21 @@ class AnimalActivity : AppCompatActivity() {
         kindEntity.id = idKindFilterSelect
 
         this.animals.clear()
-
-        this.animals = if (filterName.isNotEmpty()) {
+        val animalsFound = if (filterName.isNotEmpty()) {
             animalRepository.findByNameContainsAndKind(filterName, kindEntity)
         } else {
             animalRepository.findByKind(kindEntity)
         }
 
-        updateListView()
+        animalsFound.forEach { animalEntity -> this.animals.add(animalEntity) }
+
+        updateListViewFilter()
+
+        Log.d(AnimalActivity::class.simpleName, "Animals found: ${this.animals.size}");
     }
 
     private fun deleteById() {
         animalRepository.deleteById(this.idAnimalSelected)
-        this.animals.clear();
         updateListView()
     }
 }
