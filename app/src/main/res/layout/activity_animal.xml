@@ -33,13 +33,13 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
-            android:textAlignment="center" />
+            android:textAlignment="textStart" />
 
         <Spinner
             android:id="@+id/userAnimalSpinner"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:textAlignment="center" />
+            android:textAlignment="textStart" />
 
     </LinearLayout>
 
@@ -68,18 +68,56 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Editar" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <EditText
+            android:id="@+id/nameAnimalFilterText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Buscar por nome..."
+            android:inputType="text"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/kindAnimalFilterSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="textStart" />
+
+        <Button
+            android:id="@+id/filterAnimalButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:text="Buscar" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="480dp"
+        android:layout_height="290dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
 
         <ListView
             android:id="@+id/animalListView"
